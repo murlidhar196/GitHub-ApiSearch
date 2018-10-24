@@ -1,0 +1,87 @@
+<form class="search-form">
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]="username" name="username" placeholder="Search users by username on github.">
+    <button class="btn btn-primary" style="padding:10px; margin-top:20px;" type="button" (click)="getUser()">Search</button>
+  </div>
+</form>
+
+<div class="container table-wrapper-scroll-y table-wrapper-scroll-x" *ngIf="users">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Repo Count</th>
+        <th>Followers</th>
+        <th>Gists</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="{{users.avatar_url}}" class="img-circle" style="width:40px;" > <a [routerLink]="['/profile']" (click)="getUserInfo()" >{{ users.login }}</a></td>
+        <td>{{users.followers}}</td>
+        <td>{{users.public_repos}}</td>
+        <td>{{users.public_gists}}</td>
+      </tr>
+        </tbody>
+  </table>
+  
+</div>
+
+
+
+<div *ngIf="profileInfo">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      {{profileInfo.name}} <small>({{profileInfo.login}})</small>
+       <span *ngIf="profileInfo.company"> , Works at  {{profileInfo.company}} </span>
+        , {{profileInfo.location}}
+      </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <img src="{{profileInfo.avatar_url}}" class="img-circle img-responsive" >
+        </div>
+        <div class="col-sm-5">
+          <ul class="list-group">
+            <li class="list-group-item" *ngIf="profileInfo.bio">{{profileInfo.bio}}</li>
+            <li class="list-group-item" *ngIf="profileInfo.hireable">Available for hire!</li>
+            <li class="list-group-item" *ngIf="profileInfo.email">{{profileInfo.email}}</li>
+        
+          </ul>
+
+
+        </div>
+        <div class="col-sm-4">
+          
+          <table>
+            <tr>
+              <td style="width: 200px; height: 200px "><canvas id="barchart"></canvas></td>
+            </tr>
+          </table>
+          <!--<p>
+            <span class="label label-default">{{profile.followers}} Followers </span>
+            <span class="label label-primary"> Following {{profile.following}} </span>
+            <span class="label label-success"> {{profile.public_gists}} Gists </span>
+            <span class="label label-info"> {{profile.public_repos}} Repos </span>
+          </p> --> 
+          <p>
+            <a href="{{profileInfo.html_url}}" target="blank" class="btn btn-sm btn-success">View profile in GitHub</a>
+          </p>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="panel-title">Repos</div>
+            </div>
+            <div class="panel-body" *ngFor="let repo of repos">
+              <p class="clearfix">{{repo.name}}  <a href="{{repo.html_url}}" class="btn btn-sm btn-warning pull-right" target="_blank">View this repo on GitHub.</a> 
+              
+              </p>
+              <p>{{repo.description}}</p>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>

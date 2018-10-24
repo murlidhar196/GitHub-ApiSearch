@@ -1,0 +1,12 @@
+.search-form{
+    padding: 40px;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+    max-height: 100px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  
